@@ -13,9 +13,9 @@ public class Inspector extends Thread {
     @Override
     public void run() {
         
-        boolean lectorLaburando = true;
+        boolean lectorChamba = true;
 
-        while (lectorLaburando){
+        while (lectorChamba){
 
             try {
                 Thread.sleep(1);
@@ -26,7 +26,7 @@ public class Inspector extends Thread {
             os.tablaDePaginas.resetearBitR(); // Todos los bit R de todas 
                                               // las paginas los cambia a 0
 
-            lectorLaburando = Lector.laburando;
+            lectorChamba = Lector.chambeando;
         }
     }
 }

@@ -8,7 +8,7 @@ import pc.OS;
 public class Opcion2 {
 
     private ArrayList<String[]> referencias = new ArrayList<>();
-    private OS os;
+    public OS os;
     private Integer NP;
     private Integer TP;
 

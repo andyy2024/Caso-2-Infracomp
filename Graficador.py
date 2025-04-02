@@ -7,9 +7,11 @@ import matplotlib.ticker as ticker
 archivo = 'output/data.txt'
 df = pd.read_csv(archivo, sep=r'\s+', header=0)
 
+df.to_excel('datos.xlsx', index=False)
+
 # Verificar si el DataFrame es valido para graficar
-if df.shape[0] != 6:
-    raise ValueError("Debes correr el main con 'graficar = true'")
+# if df.shape[0] != 6:
+#     raise ValueError("Debes correr el main con 'graficar = true'")
 
 #--------------------------------------------------------------------------
 # Gráfica 1: Número total de fallas de página (escala logarítmica)
@@ -25,7 +27,7 @@ for i, marcos in enumerate(df['marcos_asignados'].unique()):
     df_marcos = df[df['marcos_asignados'] == marcos]
     ax1.bar(posiciones_barras + i * ancho_barra, df_marcos['numero_fallas'], ancho_barra, label=f'{marcos} marcos')
 
-ax1.set_xlabel('Tamaño de Página')
+ax1.set_xlabel('Tamaño de Página (Bytes)')
 ax1.set_ylabel('Num Fallas (Nota: Escala logarítmica)')
 ax1.set_title('Número Total de Fallas de Página\n(por Tamaño de Página y Marcos Asignados)')
 ax1.set_xticks(posiciones_barras + ancho_barra * (len(df['marcos_asignados'].unique()) - 1) / 2)
@@ -53,7 +55,7 @@ for i, marcos in enumerate(df['marcos_asignados'].unique()):
     df_marcos = df[df['marcos_asignados'] == marcos]
     ax2.bar(posiciones_barras + i * ancho_barra, df_marcos['numero_hits'], ancho_barra, label=f'{marcos} marcos')
 
-ax2.set_xlabel('Tamaño de Página')
+ax2.set_xlabel('Tamaño de Página (Bytes)')
 ax2.set_ylabel('Num Hits')
 ax2.set_title('Número Total de Hits\n(por Tamaño de Página y Marcos Asignados)')
 ax2.set_xticks(posiciones_barras + ancho_barra * (len(df['marcos_asignados'].unique()) - 1) / 2)

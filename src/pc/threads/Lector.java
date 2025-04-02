@@ -12,10 +12,11 @@ public class Lector extends Thread {
     private OS os;
     private ArrayList<String[]> referencias;
     private NRU nru;
-    public static boolean laburando; // informa al inspector que el
+    public static boolean chambeando; // informa al inspector que el
                                      // lector termino de leer referencias
-    private int hits;
-    private int fallas;
+    public int hits;
+    public int fallas;
+    public static boolean print;
 
     public Lector(OS os, ArrayList<String[]> referencias, NRU nru){
 
@@ -24,7 +25,7 @@ public class Lector extends Thread {
         this.nru = nru;
         hits = 0;
         fallas = 0;
-        laburando = true;
+        chambeando = true;
     }
 
     @Override
@@ -98,11 +99,7 @@ public class Lector extends Thread {
                 os.tablaDePaginas.setBitR(pagina, true);
                 os.tablaDePaginas.setBitM(pagina, true);
             }
-
-            // 3. Por ultimo simulamos el tiempo que tomo leer/escribir
-            // los datos de la RAM dependiendo de si hubo falla
-            // if (cargada){dormir(0,5);}
-            // else {dormir(10,0);}
+            
             
             i++;
             // espera 1 ms cada que lee 10000 referencias
@@ -111,22 +108,23 @@ public class Lector extends Thread {
             }
         }
 
-        laburando = false;
+        chambeando = false;
 
         // Reporte:
-        System.out.println("\n|-----------------------------------------------------------|");
-        System.out.println("                Tamaño de pagina: " + os.TP);
-        System.out.println("                Marcos: " + os.cant_marcos);
-        System.out.println("                Referencias: " + referencias.size());
-        System.out.printf("                Hits: %d (%%%.2f)%n", hits, (double) hits*100/referencias.size());
-        System.out.printf("                Fallas: %d (%%%.2f)", fallas, (double) fallas*100/referencias.size());
-        System.out.println("\n|-----------------------------------------------------------|");
+        if (print){
+            System.out.println("\n|-----------------------------------------------------------|");
+            System.out.println("                Tamaño de pagina: " + os.TP);
+            System.out.println("                Marcos: " + os.cant_marcos);
+            System.out.println("                Referencias: " + referencias.size());
+            System.out.printf("                Hits: %d (%%%.2f)%n", hits, (double) hits*100/referencias.size());
+            System.out.printf("                Fallas: %d (%%%.2f)", fallas, (double) fallas*100/referencias.size());
+            System.out.println("\n|-----------------------------------------------------------|");
+        }
 
         guardarInfo();
-
     }
 
-    public void dormir(int milis, int nanos){
+    public void dormir(long milis, int nanos){
         try {
             Thread.sleep(milis, nanos);
         } catch (InterruptedException e) {

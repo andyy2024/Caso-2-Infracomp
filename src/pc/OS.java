@@ -18,8 +18,8 @@ public class OS {
     public DiscoDuro discoDuro; // esto es solo simbolico, no afecta el funcionamiento
 
     // Los 2 threads que coordinan las peticiones:
-    Inspector Inspector; // se encarga de actualizar el estado del bit R cada 1ms
-    Lector lector; // se encarga de leer 10000 referencias cada 1ms
+    public Inspector Inspector; // se encarga de actualizar el estado del bit R cada 1ms
+    public Lector lector; // se encarga de leer 10000 referencias cada 1ms
 
     public OS(int cant_marcos, int NP, int TP, ArrayList<String[]> referencias){
 
@@ -32,7 +32,7 @@ public class OS {
         ram = new RAM(cant_marcos);
         swap = new SWAP();
         discoDuro = new DiscoDuro(NP);
-        tablaDePaginas = new TablaDePaginas(NP, cant_marcos, false);
+        tablaDePaginas = new TablaDePaginas(NP, cant_marcos);
         NRU nru = new NRU(this);
 
         lector = new Lector(this, referencias, nru);
