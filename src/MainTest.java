@@ -7,8 +7,8 @@ import pc.threads.Lector;
 public class MainTest {
     public static void main(String[] args) throws Exception {
 
-        // TestDynamicParameters(); 
-        // TestResultadosEnunciado();
+        TestDynamicParameters(); 
+        TestResultadosEnunciado();
         TestDifferentImages();
 
     }
